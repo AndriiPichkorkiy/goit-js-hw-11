@@ -2,8 +2,10 @@ import './css/styles.css';
 import './css/button.css';
 import { refs } from './js/refs.js';
 import { searchMechanics } from './js/searchMechanics.js';
-import { gallery } from './js/renderGallery.js';
+import { gallery } from './js/gallery.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { infinityPage } from './js/infinityPage.js';
+
 
 async function clickSearch(e) {
   e.preventDefault();
@@ -15,15 +17,18 @@ async function clickSearch(e) {
   Notify.info(`Hooray! We found ${searchMechanics.lastRespons.total} images.`, {
     timeout: 5000,
   });
+
+  setTimeout(scrollAfterSearch, 250);
+  
 }
 
 async function beginSearch(query) {
-  const data = await searchMechanics
+  await searchMechanics
     .fetchPhotos(query)
-      .then(response => {
-         searchMechanics.lastRespons = response;
-        const data = response.hits;
-       
+    .then(response => {
+      searchMechanics.lastRespons = response;
+      const data = response.hits;
+
       //   console.log(response);
       if (data.length) gallery.render(data);
       else throw error;
@@ -36,9 +41,33 @@ async function beginSearch(query) {
         timeout: 6000,
       });
     });
-  return data;
 }
 
+function scrollAfterSearch() {
+  const { x, y } = document.querySelector('.gallery').firstElementChild.getBoundingClientRect();
+  const { top, bottom } = document
+    .querySelector('.search-container')
+    .firstElementChild.getBoundingClientRect();
+
+  const heightSearchBar = top + bottom;
+  window.scrollTo(x, y - heightSearchBar);
+}
+
+function scrollAfterLoadMore() {
+    const { clientHeight: cardHeight } = document.querySelector('.gallery').firstElementChild;
+
+    window.scrollBy({
+      top: cardHeight * 1.5,
+      behavior: 'smooth',
+    });
+}
+
+async function loadMore() {
+    await beginSearch();
+    scrollAfterLoadMore();
+}
+
+infinityPage.init(loadMore);
 refs.buttonLoadMore.disabled = true;
 refs.form.addEventListener('click', clickSearch);
-refs.buttonLoadMore.addEventListener('click', () => beginSearch());
+refs.buttonLoadMore.addEventListener('click', loadMore);
