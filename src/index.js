@@ -35,7 +35,7 @@ async function beginSearch(query) {
       if (response === 0) return true;
       const data = response.hits;
 
-      console.log(response);
+      // console.log(response);
       if (data.length) gallery.render(data);
       else throw error;
 
@@ -75,4 +75,4 @@ async function loadMore() {
 
 refs.buttonLoadMore.disabled = true;
 refs.form.addEventListener('submit', clickSearch);
-// refs.buttonLoadMore.addEventListener('click', loadMore);
+refs.buttonLoadMore.addEventListener('click', loadMore);
