@@ -48,7 +48,6 @@ body {
 }
 
 @media screen and (max-width: 500px) {
-  
 }
 
 .gallery {
@@ -175,9 +174,6 @@ html {
 }
 
 @media screen and (max-width: 500px) {
-  body {
-    min-width: 480px;
-  }
   .themeChanger {
     position: fixed;
     top: 4px;
@@ -188,7 +184,7 @@ html {
   }
 
   body {
-    padding-top: calc(10vh + 8px)
+    padding-top: calc(10vh + 8px);
   }
 
   .pixabay-link {
@@ -197,7 +193,6 @@ html {
   }
 
   .pixabay-logo-image {
-
   }
 
   .search-container {
@@ -230,15 +225,15 @@ html {
   }
 
   .info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 
-.info-item {
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
+  .info-item {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
 }
