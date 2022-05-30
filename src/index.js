@@ -12,13 +12,17 @@ import { infinityPage } from './js/infinityPage.js';
 async function clickSearch(e) {
   e.preventDefault();
   if (e.target.nodeName !== 'FORM') return;
+  infinityPage.clear();
   gallery.clear();
   const { value } = e.currentTarget.searchQuery;
-  
-  if (!value) return Notify.info(`Hey! Please fill in something in the fild. Thanks.`, {
-    timeout: 3000,
-  })
-    
+
+  if (!value) {
+    Notify.info(`Hey! Please fill in something in the fild. Thanks.`, {
+      timeout: 3000,
+    });
+    return;
+  }
+
   await beginSearch(value);
   Notify.info(`Hooray! We found ${searchMechanics.lastRespons.total} images.`, {
     timeout: 5000,
