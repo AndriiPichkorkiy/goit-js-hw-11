@@ -75,4 +75,4 @@ async function loadMore() {
 
 refs.buttonLoadMore.disabled = true;
 refs.form.addEventListener('submit', clickSearch);
-refs.buttonLoadMore.addEventListener('click', loadMore);
+// refs.buttonLoadMore.addEventListener('click', loadMore);

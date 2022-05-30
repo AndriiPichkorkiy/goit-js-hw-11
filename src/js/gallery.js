@@ -1,10 +1,17 @@
 import { refs } from './refs';
+import { saveImage } from './saveImg.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 export const gallery = {
   placeForRender: refs.gallery,
-  simpleLightbox: new SimpleLightbox('.gallery .photo-card a', { captionsData: 'alt' }),
+  simpleLightbox: null,
+  simpleLightbox: new SimpleLightbox('.gallery .photo-card a', {
+    captionsData: 'alt',
+    captionsDelay: 150,
+    additionalHtml:
+      '<button class="button-33 download-button download-button-modal" id="modalSaveBtn" data-downloaded="true" data-modal="true">download me</button>',
+  }),
 
   render: function (data) {
     // webformatURL - посилання на маленьке зображення для списку карток.
@@ -22,8 +29,8 @@ export const gallery = {
         preMarkup +
         `
                 <div class="photo-card">
-                <button class='button-33 download-button '>download me</button>
-                     <a class='photo-card__img' href=${largeImageURL} data-name='${imgName}'>
+                <button class='button-33 download-button' data-name='${imgName}' data-downloaded='true' data-href=${largeImageURL}>download me</button>
+                     <a class='photo-card__img' href=${largeImageURL} >
                         <img src=${webformatURL} alt='${tags}' loading="lazy" />
                     </a>
                     <div class="info">
@@ -62,6 +69,5 @@ export const gallery = {
 
   refreshGalleryModule: function () {
     this.simpleLightbox.refresh();
-    // console.log(test);
   },
 };

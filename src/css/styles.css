@@ -237,3 +237,8 @@ html {
     text-align: center;
   }
 }
+
+.download-button-modal {
+  position: relative;
+  left: 35%;
+}
