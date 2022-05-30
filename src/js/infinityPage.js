@@ -33,6 +33,7 @@ export const infinityPage = {
   },
 
   clear() {
+    this.funtionToDo = null;
     window.removeEventListener('scroll', this.idForDeletEventListner);
   },
 };

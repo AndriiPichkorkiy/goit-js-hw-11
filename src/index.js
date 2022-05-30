@@ -34,7 +34,6 @@ async function beginSearch(query) {
     .then(response => {
       if (response === 0) return true;
       const data = response.hits;
-
       // console.log(response);
       if (data.length) gallery.render(data);
       else throw error;

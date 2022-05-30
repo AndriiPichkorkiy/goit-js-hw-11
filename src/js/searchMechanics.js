@@ -15,9 +15,9 @@ export const searchMechanics = {
       this.page = 1;
       this.currentQuery = userQuery;
       this.lastRespons = undefined;
-    } else {
+    } else if (this.checkRechedEnd()) {
       //check every time when page(not user) is getting extra data from backEnd
-      if (this.checkRechedEnd()) return 0;
+      return 0;
     }
 
     const urlQuery = `https://pixabay.com/api/?key=${this.API_PRIVAT_KEY}&q=${this.currentQuery}&image_type=photo&orientation=horizontal&=safesearch=true&page=${this.page}&per_page=${this.per_page}`;
@@ -34,10 +34,11 @@ export const searchMechanics = {
 
   checkRechedEnd: function () {
     if (this.per_page * this.page < this.lastRespons.total) return;
-    console.log('THE END');
+    // console.log('THE END');
     refs.buttonLoadMore.disabled = true;
     Notify.info("We're sorry, but you've reached the end of search results.", {
       timeout: 6000,
     });
+    return true;
   },
 };
