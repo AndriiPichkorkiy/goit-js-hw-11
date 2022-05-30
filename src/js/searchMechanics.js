@@ -1,7 +1,7 @@
 import { refs } from './refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import * as axios from 'axios';
-console.log(axios);
+
 export const searchMechanics = {
   API_PRIVAT_KEY: '27649790-7921965d78458e948654f4c92',
   page: 1,
