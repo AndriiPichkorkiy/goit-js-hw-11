@@ -54,7 +54,7 @@ body {
   }
 
   .search-form {
-    position:static;
+    position: static;
     right: 0;
     display: inline-block;
     transform: translate(-70px, 4px);
@@ -168,7 +168,7 @@ html {
   position: absolute;
   top: 8px;
   left: -200px;
-  z-index: 12;
+  z-index: 8;
 }
 
 .themeChanger {
