@@ -128,6 +128,12 @@
   transform: translateY(0);
 }
 
+.download-button-modal {
+  top: 0;
+  position: relative;
+  left: 35%;
+}
+
 @media screen and (max-width: 500px) {
   .button-6 {
     width: fit-content;
