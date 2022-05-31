@@ -1,6 +1,7 @@
 import { refs } from './refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import * as axios from 'axios';
+import { modalWait } from './modalWaitLoad';
 
 export const searchMechanics = {
   API_PRIVAT_KEY: '27649790-7921965d78458e948654f4c92',
@@ -20,7 +21,7 @@ export const searchMechanics = {
       Notify.info("We're sorry, but you've reached the end of search results.", {
         timeout: 6000,
       });
-      refs.modalWaitLoad.classList.add('hide');
+      modalWait.hide();
       return 0;
     }
 

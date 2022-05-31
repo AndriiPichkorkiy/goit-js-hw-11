@@ -25,7 +25,6 @@ export const infinityPage = {
             this.funtionToDo();
             // console.log(arguments.callee);
             this.clear();
-            // window.removeEventListener('scroll', this.idForDeletEventListner);
           }
         });
       }

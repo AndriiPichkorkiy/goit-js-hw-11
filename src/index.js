@@ -8,6 +8,7 @@ import { searchMechanics } from './js/searchMechanics.js';
 import { gallery } from './js/gallery.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { infinityPage } from './js/infinityPage.js';
+import { modalWait } from './js/modalWaitLoad.js'
 
 async function clickSearch(e) {
   e.preventDefault();
@@ -35,7 +36,7 @@ async function clickSearch(e) {
 
 async function beginSearch(query) {
   infinityPage.clear();
-  refs.modalWaitLoad.classList.remove('hide');
+  modalWait.show();
   return await searchMechanics
     .fetchPhotos(query)
     .then(response => {
@@ -46,20 +47,20 @@ async function beginSearch(query) {
       gallery.render(data);
 
       if (query && searchMechanics.checkRechedEnd()) {
-        refs.modalWaitLoad.classList.add('hide');
+        modalWait.hide();
         return true;
       }
       
       infinityPage.init(loadMore, refs.buttonLoadMore);
-      refs.modalWaitLoad.classList.add('hide');
+      modalWait.hide();
       return true;
     })
     .catch(error => {
-      console.error(error);
+      // console.error(error);
       Notify.warning('Sorry, there are no images matching your search query. Please try again.', {
         timeout: 6000,
       });
-      refs.modalWaitLoad.classList.add('hide');
+      modalWait.hide();
     });
 }
 
