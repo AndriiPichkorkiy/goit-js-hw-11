@@ -88,8 +88,8 @@ export const gallery = {
 
   refreshEvents() {
     this.simpleLightbox.on('shown.simplelightbox', gallery.checkApprochingToCurrentLastImg);
-    this.simpleLightbox.on('change.simplelightbox', gallery.checkApprochingToCurrentLastImg);
-    this.simpleLightbox.on('change.simplelightbox', this.checkOpenLast);
+    this.simpleLightbox.on('next.simplelightbox', gallery.checkApprochingToCurrentLastImg);
+    this.simpleLightbox.on('prev.simplelightbox', this.checkOpenLast);
     this.simpleLightbox.on('closed.simplelightbox', function () {
       gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex].scrollIntoView();
     });
