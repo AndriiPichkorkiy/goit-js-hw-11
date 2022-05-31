@@ -23,7 +23,9 @@ async function clickSearch(e) {
     return;
   }
 
-  await beginSearch(value);
+  const status = await beginSearch(value);
+  if (!status) return;
+
   Notify.info(`Hooray! We found ${searchMechanics.lastRespons.total} images.`, {
     timeout: 5000,
   });
@@ -33,23 +35,31 @@ async function clickSearch(e) {
 
 async function beginSearch(query) {
   infinityPage.clear();
-  await searchMechanics
+  refs.modalWaitLoad.classList.remove('hide');
+  return await searchMechanics
     .fetchPhotos(query)
     .then(response => {
-      if (response === 0) return true;
+      if (response === 1) throw error;
+      if (response === 0) return;
       const data = response.hits;
-      // console.log(response);
-      if (data.length) gallery.render(data);
-      else throw error;
 
-      // if (searchMechanics.checkRechedEnd(response)) return
+      gallery.render(data);
+
+      if (query && searchMechanics.checkRechedEnd()) {
+        refs.modalWaitLoad.classList.add('hide');
+        return true;
+      }
+      
       infinityPage.init(loadMore, refs.buttonLoadMore);
+      refs.modalWaitLoad.classList.add('hide');
+      return true;
     })
     .catch(error => {
       console.error(error);
       Notify.warning('Sorry, there are no images matching your search query. Please try again.', {
         timeout: 6000,
       });
+      refs.modalWaitLoad.classList.add('hide');
     });
 }
 
@@ -61,6 +71,8 @@ function scrollAfterSearch() {
 
   const heightSearchBar = top + bottom;
   window.scrollTo(x, y - heightSearchBar);
+
+  
 }
 
 function scrollAfterLoadMore() {
@@ -76,6 +88,6 @@ async function loadMore() {
   scrollAfterLoadMore();
 }
 
-refs.buttonLoadMore.disabled = true;
+// refs.buttonLoadMore.disabled = true;
 refs.form.addEventListener('submit', clickSearch);
 // refs.buttonLoadMore.addEventListener('click', loadMore);

@@ -1,14 +1,13 @@
 export const infinityPage = {
-  heightRedLine: null,
+  heightRedLine: 100,
   isScrollingRightNow: false,
   funtionToDo: null,
   idForDeletEventListner: null,
 
-  init(fun, redLine) {
+  init(fun) {
     this.idForDeletEventListner = this.checkBottom();
     window.addEventListener('scroll', this.idForDeletEventListner);
     this.funtionToDo = fun;
-    this.heightRedLine = redLine.getBoundingClientRect().height;
   },
 
   checkBottom: function () {
@@ -25,7 +24,8 @@ export const infinityPage = {
           ) {
             this.funtionToDo();
             // console.log(arguments.callee);
-            window.removeEventListener('scroll', this.idForDeletEventListner);
+            this.clear();
+            // window.removeEventListener('scroll', this.idForDeletEventListner);
           }
         });
       }

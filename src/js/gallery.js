@@ -57,13 +57,13 @@ export const gallery = {
     }, '');
 
     this.placeForRender.insertAdjacentHTML('beforeEnd', markup);
-    refs.buttonLoadMore.disabled = false;
+    // refs.buttonLoadMore.disabled = false;
 
     this.refreshGalleryModule();
   },
 
   clear: function () {
-    refs.buttonLoadMore.disabled = true;
+    // refs.buttonLoadMore.disabled = true;
     this.placeForRender.innerHTML = '';
   },
 

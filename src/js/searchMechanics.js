@@ -17,6 +17,10 @@ export const searchMechanics = {
       this.lastRespons = undefined;
     } else if (this.checkRechedEnd()) {
       //check every time when page(not user) is getting extra data from backEnd
+      Notify.info("We're sorry, but you've reached the end of search results.", {
+        timeout: 6000,
+      });
+      refs.modalWaitLoad.classList.add('hide');
       return 0;
     }
 
@@ -29,16 +33,16 @@ export const searchMechanics = {
     const response = await axios.get(urlQuery);
     this.lastRespons = response.data;
 
+    //check for bad request
+    if (response.data.total === 0) return 1;
+
     return response.data;
   },
 
   checkRechedEnd: function () {
-    if (this.per_page * this.page < this.lastRespons.total) return;
+    if (this.per_page * (this.page - 1) < this.lastRespons.total) return;
     // console.log('THE END');
-    refs.buttonLoadMore.disabled = true;
-    Notify.info("We're sorry, but you've reached the end of search results.", {
-      timeout: 6000,
-    });
+    // refs.buttonLoadMore.disabled = true;
     return true;
   },
 };
