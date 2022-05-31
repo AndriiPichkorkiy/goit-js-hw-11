@@ -1,5 +1,5 @@
 import { refs } from './refs';
-import { saveImage } from './saveImg.js';
+import { infinityPage } from './infinityPage.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -68,6 +68,50 @@ export const gallery = {
   },
 
   refreshGalleryModule: function () {
-    this.simpleLightbox.refresh();
+    //check if opened simpleLightBox
+    if (this.simpleLightbox.currentImage) {
+      const currentImg = gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex];
+
+      this.simpleLightbox.on('closed.simplelightbox', () => {
+        this.simpleLightbox.refresh();
+        this.simpleLightbox.open(currentImg);
+
+        this.refreshEvents();
+      });
+
+      gallery.simpleLightbox.close();
+    } else {
+      this.simpleLightbox.refresh();
+      this.refreshEvents();
+    }
+  },
+
+  refreshEvents() {
+    this.simpleLightbox.on('shown.simplelightbox', gallery.checkApprochingToCurrentLastImg);
+    this.simpleLightbox.on('change.simplelightbox', gallery.checkApprochingToCurrentLastImg);
+    this.simpleLightbox.on('change.simplelightbox', this.checkOpenLast);
+    this.simpleLightbox.on('closed.simplelightbox', function () {
+      gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex].scrollIntoView();
+    });
+  },
+
+  checkApprochingToCurrentLastImg() {
+    if (!infinityPage.funtionToDo) return;
+
+    const numberForFire = 2;
+    const {
+      elements: { length },
+      currentImageIndex,
+    } = gallery.simpleLightbox;
+
+    if (length - numberForFire <= currentImageIndex) {
+      infinityPage.fire();
+    }
+  },
+
+  checkOpenLast() {
+    const { currentImageIndex } = gallery.simpleLightbox;
+
+    if (currentImageIndex === 0) infinityPage.fire();
   },
 };

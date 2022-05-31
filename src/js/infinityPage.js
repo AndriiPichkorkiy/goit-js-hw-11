@@ -22,13 +22,16 @@ export const infinityPage = {
             window.innerHeight + window.scrollY >=
             document.body.scrollHeight - this.heightRedLine
           ) {
-            this.funtionToDo();
-            // console.log(arguments.callee);
-            this.clear();
+            this.fire();
           }
         });
       }
     };
+  },
+
+  fire() {
+    this.funtionToDo();
+    this.clear();
   },
 
   clear() {
