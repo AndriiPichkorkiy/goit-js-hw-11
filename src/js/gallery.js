@@ -81,6 +81,7 @@ export const gallery = {
 
       this.simpleLightbox.on('closed.simplelightbox', function () {
         gallery.simpleLightbox.refresh();
+        this.refreshEvents();
       });
     } else {
       this.simpleLightbox.refresh();
