@@ -70,16 +70,14 @@ export const gallery = {
   refreshGalleryModule: function () {
     //check if opened simpleLightBox
     if (this.simpleLightbox.currentImage) {
-      const currentImg = gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex];
+      this.simpleLightbox.elements = Array.from(
+        document.querySelectorAll('.gallery .photo-card a'),
+      );
 
-      this.simpleLightbox.on('closed.simplelightbox', () => {
-        this.simpleLightbox.refresh();
-        this.simpleLightbox.open(currentImg);
+      const length = this.simpleLightbox.elements.length;
+      this.simpleLightbox.initialLocationHash = `pid=${length}`;
 
-        this.refreshEvents();
-      });
-
-      gallery.simpleLightbox.close();
+      this.simpleLightbox.relatedElements = this.simpleLightbox.getRelated();
     } else {
       this.simpleLightbox.refresh();
       this.refreshEvents();
@@ -90,9 +88,9 @@ export const gallery = {
     this.simpleLightbox.on('shown.simplelightbox', gallery.checkApprochingToCurrentLastImg);
     this.simpleLightbox.on('next.simplelightbox', gallery.checkApprochingToCurrentLastImg);
     this.simpleLightbox.on('prev.simplelightbox', this.checkOpenLast);
-    this.simpleLightbox.on('closed.simplelightbox', function () {
-      gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex].scrollIntoView();
-    });
+    // this.simpleLightbox.on('closed.simplelightbox', function () {
+    //   gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex].scrollIntoView();
+    // });
   },
 
   checkApprochingToCurrentLastImg() {
