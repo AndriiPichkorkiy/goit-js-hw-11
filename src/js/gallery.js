@@ -78,6 +78,10 @@ export const gallery = {
       this.simpleLightbox.initialLocationHash = `pid=${length}`;
 
       this.simpleLightbox.relatedElements = this.simpleLightbox.getRelated();
+
+      this.simpleLightbox.on('closed.simplelightbox', function () {
+        gallery.simpleLightbox.refresh();
+      });
     } else {
       this.simpleLightbox.refresh();
       this.refreshEvents();
@@ -91,6 +95,7 @@ export const gallery = {
     // this.simpleLightbox.on('closed.simplelightbox', function () {
     //   gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex].scrollIntoView();
     // });
+    
   },
 
   checkApprochingToCurrentLastImg() {
