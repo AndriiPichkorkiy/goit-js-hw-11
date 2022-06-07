@@ -76,18 +76,22 @@ export const gallery = {
       let theImg = this.simpleLightbox.elements[this.simpleLightbox.currentImageIndex];
       console.log(theImg)
       this.simpleLightbox.destroy();
-      (this.simpleLightbox = new SimpleLightbox('.gallery .photo-card a', {
-        captionsData: 'alt',
-        captionsDelay: 150,
-        additionalHtml:
-          '<button class="button-33 download-button download-button-modal" id="modalSaveBtn" data-downloaded="true" data-modal="true">download me</button>',
-      })),
+      (this.simpleLightbox = new SimpleLightbox(
+        '.gallery .photo-card a',
+        {
+          captionsData: 'alt',
+          captionsDelay: 150,
+          additionalHtml:
+            '<button class="button-33 download-button download-button-modal" id="modalSaveBtn" data-downloaded="true" data-modal="true">download me</button>',
+        },
+        theImg,
+      )),
         this.refreshEvents();
       
-      setTimeout(function () {
-        const answ = gallery.simpleLightbox.open(theImg);
-        console.log('afterOpened ', answ);
-      }, 250);
+      // setTimeout(function () {
+      //   const answ = gallery.simpleLightbox.open(theImg);
+      //   console.log('afterOpened ', answ);
+      // }, 250);
 
       // const length = this.simpleLightbox.elements.length;
 
@@ -103,10 +107,10 @@ export const gallery = {
 
       // this.simpleLightbox.updateURL();
       // this.simpleLightbox.updateHash();
-      this.simpleLightbox.on('closed.simplelightbox', function () {
-        gallery.simpleLightbox.refresh();
-        gallery.refreshEvents();
-      });
+      // this.simpleLightbox.on('closed.simplelightbox', function () {
+      //   gallery.simpleLightbox.refresh();
+      //   gallery.refreshEvents();
+      // });
     } else {
       this.simpleLightbox.refresh();
       this.refreshEvents();
