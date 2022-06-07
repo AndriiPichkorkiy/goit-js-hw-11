@@ -1,7 +1,8 @@
 import { refs } from './refs';
 import { infinityPage } from './infinityPage.js';
-import SimpleLightbox from 'simplelightbox';
+// import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import  './simpleLightBox/simple-lightbox.modules';
 
 export const gallery = {
   placeForRender: refs.gallery,
@@ -87,7 +88,7 @@ export const gallery = {
         theImg,
       )),
         this.refreshEvents();
-      
+
       // setTimeout(function () {
       //   const answ = gallery.simpleLightbox.open(theImg);
       //   console.log('afterOpened ', answ);
