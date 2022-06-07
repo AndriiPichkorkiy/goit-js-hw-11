@@ -74,7 +74,7 @@ export const gallery = {
       //   document.querySelectorAll('.gallery .photo-card a'),
       // );
       let theImg = this.simpleLightbox.elements[this.simpleLightbox.currentImageIndex];
-      console.log(theImg)
+      // console.log(theImg)
       this.simpleLightbox.destroy();
       (this.simpleLightbox = new SimpleLightbox(
         '.gallery .photo-card a',
@@ -137,9 +137,9 @@ export const gallery = {
       elements: { length },
       currentImageIndex,
     } = gallery.simpleLightbox;
-    console.log(length - numberForFire, ' >=', currentImageIndex, gallery.simpleLightbox);
+    // console.log(length - numberForFire, ' >=', currentImageIndex, gallery.simpleLightbox);
     if (length - numberForFire <= currentImageIndex) {
-      console.log(true);
+      // console.log(true);
       infinityPage.fire();
     }
   },
