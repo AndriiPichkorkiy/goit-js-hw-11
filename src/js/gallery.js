@@ -70,18 +70,42 @@ export const gallery = {
   refreshGalleryModule: function () {
     //check if opened simpleLightBox
     if (this.simpleLightbox.currentImage) {
-      this.simpleLightbox.elements = Array.from(
-        document.querySelectorAll('.gallery .photo-card a'),
-      );
+      // this.simpleLightbox.elements = Array.from(
+      //   document.querySelectorAll('.gallery .photo-card a'),
+      // );
+      let theImg = this.simpleLightbox.elements[this.simpleLightbox.currentImageIndex];
+      console.log(theImg)
+      this.simpleLightbox.destroy();
+      (this.simpleLightbox = new SimpleLightbox('.gallery .photo-card a', {
+        captionsData: 'alt',
+        captionsDelay: 150,
+        additionalHtml:
+          '<button class="button-33 download-button download-button-modal" id="modalSaveBtn" data-downloaded="true" data-modal="true">download me</button>',
+      })),
+        this.refreshEvents();
+      
+      setTimeout(function () {
+        const answ = gallery.simpleLightbox.open(theImg);
+        console.log('afterOpened ', answ);
+      }, 250);
 
-      const length = this.simpleLightbox.elements.length;
-      this.simpleLightbox.initialLocationHash = `pid=${length}`;
+      // const length = this.simpleLightbox.elements.length;
 
-      this.simpleLightbox.relatedElements = this.simpleLightbox.getRelated();
+      // this.simpleLightbox.initialLocationHash = `pid=${length}`;
+      // this.simpleLightbox.initialLocationHash = '';
 
+      // this.simpleLightbox.relatedElements =
+      //   this.simpleLightbox.getRelated();
+      //   this.simpleLightbox.domNodes.counter.querySelector('.sl-total').innerHTML =
+      //   length;
+
+      //   simpleLightbox.addEvents();
+
+      // this.simpleLightbox.updateURL();
+      // this.simpleLightbox.updateHash();
       this.simpleLightbox.on('closed.simplelightbox', function () {
         gallery.simpleLightbox.refresh();
-        this.refreshEvents();
+        gallery.refreshEvents();
       });
     } else {
       this.simpleLightbox.refresh();
@@ -91,24 +115,27 @@ export const gallery = {
 
   refreshEvents() {
     this.simpleLightbox.on('shown.simplelightbox', gallery.checkApprochingToCurrentLastImg);
-    this.simpleLightbox.on('next.simplelightbox', gallery.checkApprochingToCurrentLastImg);
-    this.simpleLightbox.on('prev.simplelightbox', this.checkOpenLast);
+    this.simpleLightbox.on('changed.simplelightbox', gallery.checkApprochingToCurrentLastImg);
+    // this.simpleLightbox.on('prev.simplelightbox', this.checkOpenLast);
     // this.simpleLightbox.on('closed.simplelightbox', function () {
     //   gallery.simpleLightbox.elements[gallery.simpleLightbox.currentImageIndex].scrollIntoView();
     // });
-    
   },
 
   checkApprochingToCurrentLastImg() {
-    if (!infinityPage.funtionToDo) return;
+    if (!infinityPage.funtionToDo) if (!infinityPage.funtionToDo) return;
+
+    // const { currentImageIndex } = gallery.simpleLightbox;
+    // if (currentImageIndex === 0)  return infinityPage.fire();
 
     const numberForFire = 2;
     const {
       elements: { length },
       currentImageIndex,
     } = gallery.simpleLightbox;
-
+    console.log(length - numberForFire, ' >=', currentImageIndex, gallery.simpleLightbox);
     if (length - numberForFire <= currentImageIndex) {
+      console.log(true);
       infinityPage.fire();
     }
   },

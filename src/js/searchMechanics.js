@@ -6,7 +6,7 @@ import { modalWait } from './modalWaitLoad';
 export const searchMechanics = {
   API_PRIVAT_KEY: '27649790-7921965d78458e948654f4c92',
   page: 1,
-  per_page: 40,
+  per_page: 5,
   currentQuery: null,
   lastRespons: undefined,
 
